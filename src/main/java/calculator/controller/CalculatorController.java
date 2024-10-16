@@ -1,8 +1,6 @@
 package calculator.controller;
 
 import calculator.domain.Calculator;
-import calculator.domain.DelimiterExtractor;
-import calculator.domain.Splitter;
 import calculator.view.InputView;
 import calculator.view.OutputView;
 
@@ -18,7 +16,7 @@ public class CalculatorController {
 
     public void run() {
         String additionNumbers = inputView.inputAdditionNumbers();
-        Calculator calculator = new Calculator(new DelimiterExtractor(), new Splitter());
+        Calculator calculator = new Calculator();
 
         outputView.printResult(calculator.calculate(additionNumbers));
     }

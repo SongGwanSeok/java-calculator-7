@@ -7,7 +7,14 @@ public class Splitter {
 
     private static final String END_POINT = "\\n";
 
-    public List<String> split(Set<String> delimiters, String input) {
+    private final DelimiterExtractor delimiterExtractor;
+
+    public Splitter(DelimiterExtractor delimiterExtractor) {
+        this.delimiterExtractor = delimiterExtractor;
+    }
+
+    public List<String> split(String input) {
+        Set<String> delimiters = delimiterExtractor.extractDelimiters(input);
         String regex = String.join("|", delimiters);
 
         return List.of(getNumberPart(input).split(regex));
