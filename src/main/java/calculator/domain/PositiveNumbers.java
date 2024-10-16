@@ -6,8 +6,8 @@ public class PositiveNumbers {
 
     private final List<PositiveNumber> numbers;
 
-    public PositiveNumbers(List<String> splitStrings) {
-        numbers = splitStrings
+    public PositiveNumbers(List<String> numberStrings) {
+        this.numbers = numberStrings
             .stream()
             .map(PositiveNumber::new)
             .toList();

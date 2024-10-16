@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class Splitter {
 
-    private static final String END_POINT = "\\n";
+    private static final int NOT_CONTAIN_END_PATTERN = -1;
 
     private final DelimiterExtractor delimiterExtractor;
 
@@ -15,18 +15,21 @@ public class Splitter {
 
     public List<String> split(String input) {
         Set<String> delimiters = delimiterExtractor.extractDelimiters(input);
-        String regex = String.join("|", delimiters);
+        String delimiterRegex = String.join("|", delimiters);
 
-        return List.of(getNumberPart(input).split(regex));
+        String numberPart = splitNumberPartFrom(input);
+
+        return List.of(numberPart.split(delimiterRegex));
     }
 
-    private String getNumberPart(String input) {
-        int endIndex = input.indexOf(END_POINT);
+    private String splitNumberPartFrom(String input) {
+        String endPattern = delimiterExtractor.getEndPattern();
+        int endIndex = input.indexOf(endPattern);
 
-        if (endIndex == -1) {
+        if (endIndex == NOT_CONTAIN_END_PATTERN) {
             return input;
         }
-        return input.substring(endIndex + 2);
+        return input.substring(endIndex + endPattern.length());
     }
 
 }
