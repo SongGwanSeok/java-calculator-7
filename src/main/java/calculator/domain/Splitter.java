@@ -15,12 +15,12 @@ public class Splitter {
     public List<String> split(String input) {
         Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
         String delimiterRegex = delimiterExtractor.makeDelimiterRegex(delimiters);
-        String numberPart = splitNumberPart(input);
+        String numberPart = getNumberPart(input);
 
         return List.of(numberPart.split(delimiterRegex));
     }
 
-    private String splitNumberPart(String input) {
+    private String getNumberPart(String input) {
         if (!delimiterExtractor.isContainDelimiter(input)) {
             return input;
         }
