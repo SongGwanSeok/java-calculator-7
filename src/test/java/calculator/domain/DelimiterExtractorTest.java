@@ -34,7 +34,7 @@ class DelimiterExtractorTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"//,\\n", "//:\\n"})
+    @ValueSource(strings = {"//,\\n", "//:\\n", "//\\n"})
     @DisplayName("구분자가 있는 경우 테스트 (기본 구분자) - success")
     void testExtractDefaultDelimitersSuccess(String input) {
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
