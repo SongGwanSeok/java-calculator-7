@@ -17,7 +17,7 @@ class PositiveNumberTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"0", "-1", "3.14", "9999999999"})
+    @ValueSource(strings = {"", "0", "-1", "3.14", "9999999999"})
     @DisplayName("PositiveNumber 생성 테스트 - fail")
     void testPositiveNumberFail(String numberString) {
         Assertions.assertThatThrownBy(() -> new PositiveNumber(numberString))
