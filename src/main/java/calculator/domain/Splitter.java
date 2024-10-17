@@ -14,8 +14,8 @@ public class Splitter {
     }
 
     public List<String> split(String input) {
-        Set<String> delimiters = delimiterExtractor.extractDelimiters(input);
-        String delimiterRegex = String.join("|", delimiters);
+        Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
+        String delimiterRegex = delimiterExtractor.makeDelimiterRegex(delimiters);
 
         String numberPart = splitNumberPartFrom(input);
 
