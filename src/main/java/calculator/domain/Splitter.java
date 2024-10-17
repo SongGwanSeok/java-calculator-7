@@ -17,12 +17,12 @@ public class Splitter {
         Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
         String delimiterRegex = delimiterExtractor.makeDelimiterRegex(delimiters);
 
-        String numberPart = splitNumberPartFrom(input);
+        String numberPart = splitNumberPart(input);
 
         return List.of(numberPart.split(delimiterRegex));
     }
 
-    private String splitNumberPartFrom(String input) {
+    private String splitNumberPart(String input) {
         String endPattern = delimiterExtractor.getEndPattern();
         int endIndex = input.indexOf(endPattern);
 
