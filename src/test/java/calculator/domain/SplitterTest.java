@@ -4,13 +4,16 @@ import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 public class SplitterTest {
 
-    @Test
+    @ParameterizedTest
+    @ValueSource(strings = {"//[\\n123,21:3[4111", "//]\\n123,21:3]4111", "//\\n123,21:3,4111", "//.\\n123,21:3.4111",
+        "//\\\\n123,21:3\\4111", "//^\\n123,21:3^4111"})
     @DisplayName("구분자가 있을 때 split() 테스트 - success")
-    void testSplitWithCustomDelimiterSuccess() {
-        String input = "//[\\n123,21:3[4111";
+    void testSplitWithCustomDelimiterSuccess(String input) {
         Splitter splitter = new Splitter(new DelimiterExtractor());
         List<String> expected = List.of("123", "21", "3", "4111");
 

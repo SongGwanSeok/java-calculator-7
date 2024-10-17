@@ -8,7 +8,9 @@ import java.util.stream.Collectors;
 public class DelimiterExtractor {
 
     private static final List<Character> DEFAULT_DELIMITERS = List.of(',', ':');
+    private static final List<Character> REGEX_DELIMITERS = List.of('[', ']', '\\', '^', '-');
     private static final String DELIMITER_PART_REGEX = "^//.?\\\\n.*";
+    private static final String ESCAPE_CHARACTER = "\\";
     private static final String END_PATTERN = "\\n";
     private static final Integer DELIMITER_IDX = 2;
 
@@ -36,10 +38,10 @@ public class DelimiterExtractor {
     }
 
     private String escapeSpecialCharacter(char delimiter) {
-        return switch (delimiter) {
-            case '.', '+', '[', ']' -> "\\" + delimiter;
-            default -> String.valueOf(delimiter);
-        };
+        if (REGEX_DELIMITERS.contains(delimiter)) {
+            return ESCAPE_CHARACTER + delimiter;
+        }
+        return String.valueOf(delimiter);
     }
 
 }
