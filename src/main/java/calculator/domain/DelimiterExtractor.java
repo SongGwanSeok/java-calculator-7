@@ -11,6 +11,7 @@ public class DelimiterExtractor {
     private static final String START_PATTERN = "//";
     private static final String END_PATTERN = "\\n";
     private static final Integer DELIMITER_IDX = 2;
+    private static final Integer END_PATTERN_IDX = 3;
 
     public Set<Character> extractDelimiters(String input) {
         Set<Character> delimiters = new HashSet<>(DEFAULT_DELIMITERS);
@@ -23,11 +24,10 @@ public class DelimiterExtractor {
     }
 
     private boolean isContainDelimiter(String input) {
-        if (input.startsWith(START_PATTERN)) {
-            int endIndex = input.indexOf(END_PATTERN);
-            return endIndex != -1;
+        if (!input.startsWith(START_PATTERN)) {
+            return false;
         }
-        return false;
+        return input.contains(END_PATTERN) && input.indexOf(END_PATTERN) == END_PATTERN_IDX;
     }
 
     public String makeDelimiterRegex(Set<Character> delimiters) {
