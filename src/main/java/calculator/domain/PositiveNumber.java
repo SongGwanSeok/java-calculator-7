@@ -3,7 +3,6 @@ package calculator.domain;
 public class PositiveNumber {
 
     private static final String POSITIVE_INTEGER_REGEX = "^[1-9]\\d*$";
-    private static final String IS_NOT_MATCH_MESSAGE = "양수만 입력해야 합니다.";
 
     private final int number;
 
@@ -14,7 +13,7 @@ public class PositiveNumber {
 
     private void validatePositiveNumber(String splitString) {
         if (!splitString.matches(POSITIVE_INTEGER_REGEX)) {
-            throw new IllegalArgumentException(IS_NOT_MATCH_MESSAGE);
+            throw new IllegalArgumentException("양수만 입력해야 합니다.");
         }
     }
 
