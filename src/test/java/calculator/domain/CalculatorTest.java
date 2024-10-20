@@ -9,7 +9,7 @@ class CalculatorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"//;\\n1,2:3;4", "1,2:3:4", "//[\\n1,2[3:4"})
-    @DisplayName("calculator 계산 결과 테스트 - success")
+    @DisplayName("calculator 계산 결과 반환 테스트")
     void testCalculateSuccess(String input) {
         // given
         Calculator calculator = new Calculator();

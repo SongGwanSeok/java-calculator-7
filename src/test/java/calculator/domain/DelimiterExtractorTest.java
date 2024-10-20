@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 class DelimiterExtractorTest {
 
     @Test
-    @DisplayName("구분자가 없는 경우 테스트 - success")
+    @DisplayName("구분자가 없는 경우 기본 구분자 반환 테스트")
     void testExtractEmptyDelimitersSuccess() {
         // given
         String input = "1,2:3";
@@ -27,7 +27,7 @@ class DelimiterExtractorTest {
     @ParameterizedTest
     @ValueSource(chars = {'[', ']', '-', '+', 'a', '0', '?', '/', '\\', '"', '\'', ';', '.', '<', '>', '!', '@', '#',
             '$', '%', '^', '&', '*', '(', ')', '='})
-    @DisplayName("구분자가 있는 경우 테스트 - success")
+    @DisplayName("구분자가 있는 경우 구분자 포함 반환 테스트")
     void testExtractDelimitersSuccess(char delimiter) {
         // given
         String input = "//" + delimiter + "\\n";
@@ -43,7 +43,7 @@ class DelimiterExtractorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"//,\\n", "//:\\n", "//\\n"})
-    @DisplayName("구분자가 있는 경우 테스트 (기본 구분자) - success")
+    @DisplayName("기본 구분자가 입력에 들어 온 경우 테스트")
     void testExtractDefaultDelimitersSuccess(String input) {
         // given
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
@@ -58,7 +58,7 @@ class DelimiterExtractorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {";\\n", "/;\\n"})
-    @DisplayName("왼쪽 패턴('//')이 없는 경우 테스트 - success")
+    @DisplayName("왼쪽 패턴('//')이 없는 경우 테스트")
     void testExtractDelimitersWrongLeftPatternFail(String input) {
         // given
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
@@ -73,7 +73,7 @@ class DelimiterExtractorTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"//;\\", "//;n1,2;3", "//;1,2;3", "//;\n1,2;3"})
-    @DisplayName("오른쪽 패턴('\n')이 없는 경우 테스트 - success")
+    @DisplayName("오른쪽 패턴('\n')이 없는 경우 테스트")
     void testExtractDelimitersWrongRightPatternFail(String input) {
         // given
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();

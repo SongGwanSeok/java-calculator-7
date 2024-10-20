@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 public class SplitterTest {
 
     @Test
-    @DisplayName("구분자가 없을 때 split() 테스트 - success")
+    @DisplayName("구분자가 없을 때 기본 구분자로 분리 테스트")
     void testSplitWithoutCustomDelimiterSuccess() {
         // given
         String input = "123,21,3:4111";
@@ -27,7 +27,7 @@ public class SplitterTest {
     @ParameterizedTest
     @ValueSource(chars = {'[', ']', '-', '+', 'a', '0', '?', '/', '\\', '"', '\'', ';', '.', '<', '>', '!', '@', '#',
             '$', '%', '^', '&', '*', '(', ')', '='})
-    @DisplayName("구분자가 있을 때 split() 테스트 - success")
+    @DisplayName("구분자가 있을 때 입력 구분자 포함 분리 테스트")
     void testSplitWithCustomDelimiterSuccess(char delimiter) {
         // given
         String input = String.format("//%c\\n123,21:3%c4111", delimiter, delimiter);

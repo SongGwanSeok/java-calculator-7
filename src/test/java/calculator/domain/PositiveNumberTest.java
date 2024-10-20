@@ -9,7 +9,7 @@ class PositiveNumberTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"1", "22", "333", "4444", "55555", "666666", "7777777", "88888888", "999999999"})
-    @DisplayName("PositiveNumber 생성 테스트 - success")
+    @DisplayName("PositiveNumber 정상 생성 테스트")
     void testPositiveNumberSuccess(String numberString) {
         // given
         PositiveNumber positiveNumber = new PositiveNumber(numberString);
@@ -24,7 +24,7 @@ class PositiveNumberTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"", "0", "-1", "3.14", "9999999999"})
-    @DisplayName("PositiveNumber 생성 테스트 - fail")
+    @DisplayName("PositiveNumber 생성 빈 문자열, 양수, Integer 범위 초과 테스트")
     void testPositiveNumberFail(String numberString) {
         // when then
         Assertions.assertThatThrownBy(() -> new PositiveNumber(numberString))
