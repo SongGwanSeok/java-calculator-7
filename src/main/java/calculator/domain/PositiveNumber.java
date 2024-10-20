@@ -6,13 +6,13 @@ public class PositiveNumber {
 
     private final int number;
 
-    public PositiveNumber(String numberString) {
-        validatePositiveNumber(numberString);
-        this.number = Integer.parseInt(numberString);
+    public PositiveNumber(String invalidNumber) {
+        validatePositiveNumber(invalidNumber);
+        this.number = Integer.parseInt(invalidNumber);
     }
 
-    private void validatePositiveNumber(String splitString) {
-        if (!splitString.matches(POSITIVE_INTEGER_REGEX)) {
+    private void validatePositiveNumber(String invalidNumber) {
+        if (!invalidNumber.matches(POSITIVE_INTEGER_REGEX)) {
             throw new IllegalArgumentException("양수만 입력해야 합니다.");
         }
     }
@@ -20,5 +20,4 @@ public class PositiveNumber {
     public int getNumber() {
         return number;
     }
-
 }

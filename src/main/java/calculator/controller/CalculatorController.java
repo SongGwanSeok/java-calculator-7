@@ -15,10 +15,10 @@ public class CalculatorController {
     }
 
     public void run() {
-        Calculator calculator = new Calculator();
         String inputForSum = inputView.readInputForSum();
+
+        Calculator calculator = new Calculator();
 
         outputView.printResult(calculator.calculate(inputForSum));
     }
-
 }

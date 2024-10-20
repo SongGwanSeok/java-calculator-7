@@ -9,25 +9,35 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 public class SplitterTest {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"//[\\n123,21:3[4111", "//]\\n123,21:3]4111", "//\\n123,21:3,4111", "//.\\n123,21:3.4111",
-        "//\\\\n123,21:3\\4111", "//^\\n123,21:3^4111"})
-    @DisplayName("구분자가 있을 때 split() 테스트 - success")
-    void testSplitWithCustomDelimiterSuccess(String input) {
-        Splitter splitter = new Splitter(new DelimiterExtractor());
-        List<String> expected = List.of("123", "21", "3", "4111");
-
-        Assertions.assertThat(splitter.split(input)).isEqualTo(expected);
-    }
-
     @Test
     @DisplayName("구분자가 없을 때 split() 테스트 - success")
     void testSplitWithoutCustomDelimiterSuccess() {
+        // given
         String input = "123,21,3:4111";
-        Splitter splitter = new Splitter(new DelimiterExtractor());
+        Splitter splitter = new Splitter();
         List<String> expected = List.of("123", "21", "3", "4111");
 
-        Assertions.assertThat(splitter.split(input)).isEqualTo(expected);
+        // when
+        List<String> actual = splitter.split(input);
+
+        // then
+        Assertions.assertThat(actual).isEqualTo(expected);
     }
 
+    @ParameterizedTest
+    @ValueSource(chars = {'[', ']', '-', '+', 'a', '0', '?', '/', '\\', '"', '\'', ';', '.', '<', '>', '!', '@', '#',
+            '$', '%', '^', '&', '*', '(', ')', '='})
+    @DisplayName("구분자가 있을 때 split() 테스트 - success")
+    void testSplitWithCustomDelimiterSuccess(char delimiter) {
+        // given
+        String input = String.format("//%c\\n123,21:3%c4111", delimiter, delimiter);
+        Splitter splitter = new Splitter();
+        List<String> expected = List.of("123", "21", "3", "4111");
+
+        // when
+        List<String> actual = splitter.split(input);
+
+        // then
+        Assertions.assertThat(actual).isEqualTo(expected);
+    }
 }

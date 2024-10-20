@@ -10,20 +10,27 @@ class PositiveNumbersTest {
     @Test
     @DisplayName("calculateSum() 테스트 - success")
     void testPositiveNumbersSuccess() {
+        // given
         List<String> numbers = List.of("1", "2", "3", "4", "5", "6", "7", "8", "9", "10");
         PositiveNumbers positiveNumbers = new PositiveNumbers(numbers);
-        int expectedSum = 55;
+        int expected = 55;
 
-        Assertions.assertThat(positiveNumbers.calculateSum()).isEqualTo(expectedSum);
+        // when
+        int actual = positiveNumbers.calculateSum();
+
+        // then
+        Assertions.assertThat(actual).isEqualTo(expected);
     }
 
     @Test
     @DisplayName("calculateSum() 테스트 - fail")
     void testPositiveNumbersFail() {
+        // given
         List<String> numbers = List.of("2147483647", "2147483647");
         PositiveNumbers positiveNumbers = new PositiveNumbers(numbers);
 
-        Assertions.assertThatThrownBy(positiveNumbers::calculateSum).isInstanceOf(IllegalArgumentException.class);
+        // when then
+        Assertions.assertThatThrownBy(positiveNumbers::calculateSum)
+                .isInstanceOf(IllegalArgumentException.class);
     }
-
 }

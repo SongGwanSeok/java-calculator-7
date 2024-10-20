@@ -12,60 +12,77 @@ class DelimiterExtractorTest {
     @Test
     @DisplayName("구분자가 없는 경우 테스트 - success")
     void testExtractEmptyDelimitersSuccess() {
+        // given
         String input = "1,2:3";
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
-        Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
+        Set<Character> expected = Set.of(',', ':');
 
-        Assertions.assertThat(delimiters).hasSize(2);
-        Assertions.assertThat(delimiters).isEqualTo(Set.of(',', ':'));
+        // when
+        Set<Character> actual = delimiterExtractor.extractDelimiters(input);
+
+        // then
+        Assertions.assertThat(actual).hasSize(expected.size()).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @ValueSource(chars = {'[', ']', '-', '+', 'a', '0', '?', '/', '\\', '"', '\'', ';', '.', '<', '>', '!', '@', '#',
-        '$', '%', '^', '&', '*', '(', ')', '='})
+            '$', '%', '^', '&', '*', '(', ')', '='})
     @DisplayName("구분자가 있는 경우 테스트 - success")
     void testExtractDelimitersSuccess(char delimiter) {
-        String input = "//" + delimiter + "\\n1,2:3,4,5";
+        // given
+        String input = "//" + delimiter + "\\n";
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
-        Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
+        Set<Character> expected = Set.of(',', ':', delimiter);
 
-        Assertions.assertThat(delimiters).hasSize(3);
-        Assertions.assertThat(delimiters).isEqualTo(Set.of(',', ':', delimiter));
+        // when
+        Set<Character> actual = delimiterExtractor.extractDelimiters(input);
+
+        // then
+        Assertions.assertThat(actual).hasSize(expected.size()).isEqualTo(expected);
     }
 
     @ParameterizedTest
     @ValueSource(strings = {"//,\\n", "//:\\n", "//\\n"})
     @DisplayName("구분자가 있는 경우 테스트 (기본 구분자) - success")
     void testExtractDefaultDelimitersSuccess(String input) {
+        // given
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
-        Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
+        Set<Character> expected = Set.of(',', ':');
 
-        Assertions.assertThat(delimiters).hasSize(2);
-        Assertions.assertThat(delimiters).isEqualTo(Set.of(',', ':'));
+        // when
+        Set<Character> actual = delimiterExtractor.extractDelimiters(input);
+
+        // then
+        Assertions.assertThat(actual).hasSize(expected.size()).isEqualTo(expected);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {";\\n1,2;;3", "/;\\n1,2;;3"})
+    @ValueSource(strings = {";\\n", "/;\\n"})
     @DisplayName("왼쪽 패턴('//')이 없는 경우 테스트 - success")
     void testExtractDelimitersWrongLeftPatternFail(String input) {
+        // given
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
+        Set<Character> expected = Set.of(',', ':');
 
-        Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
+        // when
+        Set<Character> actual = delimiterExtractor.extractDelimiters(input);
 
-        Assertions.assertThat(delimiters).hasSize(2);
-        Assertions.assertThat(delimiters).isEqualTo(Set.of(',', ':'));
+        //then
+        Assertions.assertThat(actual).hasSize(expected.size()).isEqualTo(expected);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"//;\1,2;3", "//;n1,2;3", "//;1,2;3", "//;\n1,2;3"})
+    @ValueSource(strings = {"//;\\", "//;n1,2;3", "//;1,2;3", "//;\n1,2;3"})
     @DisplayName("오른쪽 패턴('\n')이 없는 경우 테스트 - success")
     void testExtractDelimitersWrongRightPatternFail(String input) {
+        // given
         DelimiterExtractor delimiterExtractor = new DelimiterExtractor();
+        Set<Character> expected = Set.of(',', ':');
 
-        Set<Character> delimiters = delimiterExtractor.extractDelimiters(input);
+        // when
+        Set<Character> actual = delimiterExtractor.extractDelimiters(input);
 
-        Assertions.assertThat(delimiters).hasSize(2);
-        Assertions.assertThat(delimiters).isEqualTo(Set.of(',', ':'));
+        // then
+        Assertions.assertThat(actual).hasSize(expected.size()).isEqualTo(expected);
     }
-
 }
